@@ -3,9 +3,6 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
-import * as YoutubeTranscriptModule from 'youtube-transcript';
-// @ts-ignore
-const YoutubeTranscript = YoutubeTranscriptModule.YoutubeTranscript || YoutubeTranscriptModule.default || YoutubeTranscriptModule;
 import dotenv from "dotenv";
 
 console.log("🟢 Server script starting...");
@@ -43,18 +40,6 @@ app.post("/api/chat", async (req, res) => {
   } catch (error) {
     console.error("Gemini Error:", error);
     res.status(500).json({ error: "Fehler bei der KI-Anfrage" });
-  }
-});
-
-app.post("/api/youtube", async (req, res) => {
-  try {
-    const { url } = req.body;
-    const transcript = await YoutubeTranscript.fetchTranscript(url);
-    const text = transcript.map(t => t.text).join(" ");
-    res.json({ transcript: text.substring(0, 5000) }); // Kürzen für die KI
-  } catch (error) {
-    console.error("YouTube Error:", error);
-    res.status(500).json({ error: "YouTube-Fehler" });
   }
 });
 
