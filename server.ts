@@ -3,7 +3,8 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
-import { YoutubeTranscript } from 'youtube-transcript';
+// @ts-ignore
+import YoutubeTranscript from 'youtube-transcript';
 import dotenv from "dotenv";
 
 console.log("🟢 Server script starting...");
